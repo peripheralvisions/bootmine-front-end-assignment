@@ -17,6 +17,7 @@
     "autoprefixer": "^10.4.2",
     "babel-loader": "^8.2.3",
     "css-loader": "^6.6.0",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "postcss-loader": "^6.2.1",
     "style-loader": "^3.3.1",
@@ -25,8 +26,11 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
+    "prop-types": "^15.8.1",
     "react": "^17.0.2",
+    "react-columns": "^1.2.1",
     "react-dom": "^17.0.2",
+    "redis": "^4.0.3",
     "tailwindcss": "^3.0.18"
   }
 }
