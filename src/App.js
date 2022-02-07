@@ -171,6 +171,7 @@ function App() {
         db.get(id).then(function (doc) {
             console.log(doc);
             console.log(newContents)
+            return db.put({
                 _id: doc._id,
                 _rev: doc._rev,
                 title: newContents.title,
