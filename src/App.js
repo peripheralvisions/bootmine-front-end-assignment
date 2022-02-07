@@ -2,6 +2,10 @@ import React, { useState, useRef, useEffect, useReducer } from "react";
 import Columns from "react-columns";
 import bootmineLogo from "./svg/Bootmine-logo.svg";
 
+import ReactMarkdown from 'react-markdown'
+
+// console.log(<ReactMarkdown children={`Just a link: https://reactjs.com.`} remarkPlugins={[remarkGfm]} />);
+
 import PouchDB from "pouchdb";
 
 var db = new PouchDB('notes');
@@ -40,14 +44,19 @@ const Card = (props) => {
                 onChange={(evt) => onChangeHandler(evt, setTitle)}
             ></input>
             <hr />
-            <textarea
-                disabled={isEdited ? false : true}
-                className="h-24 bg-transparent outline-none"
-                name=""
-                id=""
-                value={description}
-                onChange={(evt) => onChangeHandler(evt, setDescription)}
-            ></textarea>
+            {
+                isEdited ? (
+                    <textarea
+                        className="bg-transparent outline-none resize-none inline-block"
+                        name=""
+                        id=""
+                        onChange={(evt) => onChangeHandler(evt, setDescription)}>
+                        {description}
+                    </textarea>
+                ) : (
+                    <ReactMarkdown children={description} />
+                )
+            }
             <div className="Card__actions flex flex-row space-x-3 justify-end items-end">
                 {isEdited ?
                     (<div className="Card__actions-save" onClick={() => {
