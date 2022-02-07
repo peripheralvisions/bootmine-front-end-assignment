@@ -3,25 +3,8 @@ import Columns from "react-columns";
 import bootmineLogo from "./svg/Bootmine-logo.svg";
 
 import PouchDB from "pouchdb";
-import { func } from "prop-types";
 
 var db = new PouchDB('notes');
-
-
-function addTodo(noteObject) {
-
-    var todo = {
-      _id: new Date().toISOString(),
-      title: noteObject.title,
-      description: noteObject.description
-    };
-
-    db.put(todo, function callback(err, result) {
-      if (!err) {
-        console.log('Successfully posted a todo!');
-      }
-    });
-}
 
 const Header = () => {
     return (
@@ -45,11 +28,9 @@ const Card = (props) => {
         setDescription(props.description);
     }, [props.title, props.description])
 
-    // console.log("props", props);
-
     return (
         <div
-            className={"Card bg-yellow-200 flex flex-col p-4 space-y-3 mr-4 mb-4"}>
+            className={"Card bg-yellow-100 flex flex-col p-4 space-y-3 mr-4 mb-4"}>
             <input
                 className="font-semibold bg-transparent outline-none"
                 value={title}
@@ -161,7 +142,6 @@ function App() {
         setData(prevState => {
             let temp = [...prevState];
             temp.splice(arrIndex, 1);
-            console.log(temp);
             return temp;
         })
     }
@@ -169,8 +149,6 @@ function App() {
     //Modify
     function modifyNote(id, arrIndex, newContents) {
         db.get(id).then(function (doc) {
-            console.log(doc);
-            console.log(newContents)
             return db.put({
                 _id: doc._id,
                 _rev: doc._rev,
@@ -183,11 +161,11 @@ function App() {
             let temp = [...prevState];
             temp[arrIndex].title = newContents.title;
             temp[arrIndex].description = newContents.description;
-            console.log(temp);
             return temp;
         })
     }
 
+    //Mount
     useEffect(() => {
         db.allDocs({
             include_docs: true,
