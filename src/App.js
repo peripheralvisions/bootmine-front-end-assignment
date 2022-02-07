@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Columns from "react-columns";
+import bootmineLogo from "./svg/Bootmine-logo.svg";
 
 const demoData = [
     {
@@ -46,7 +47,7 @@ const demoData = [
 const Header = () => {
     return (
         <div className="flex justify-center items-center text-lg h-24 bg-black text-white">
-            Bootmine
+            <img src={bootmineLogo} alt="" srcset="" />
         </div>
     );
 };
