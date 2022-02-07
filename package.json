@@ -31,6 +31,7 @@
     "react": "^17.0.2",
     "react-columns": "^1.2.1",
     "react-dom": "^17.0.2",
+    "react-markdown": "^8.0.0",
     "redis": "^4.0.3",
     "tailwindcss": "^3.0.18"
   }
