@@ -23,48 +23,6 @@ function addTodo(noteObject) {
     });
 }
 
-const demoData = [
-    {
-        title: "Hello World",
-        description: "This is a placeholder",
-    },
-
-    {
-        title: "Hello World",
-        description: "This is a placeholder",
-    },
-
-    {
-        title: "Hello World",
-        description: "This is a placeholder",
-    },
-
-    {
-        title: "Hello World",
-        description: "This is a placeholder",
-    },
-
-    {
-        title: "Hello World",
-        description: "This is a placeholder",
-    },
-
-    {
-        title: "Hello World",
-        description: "This is a placeholder",
-    },
-
-    {
-        title: "Hello World",
-        description: "This is a placeholder",
-    },
-
-    {
-        title: "Hello World",
-        description: "This is a placeholder",
-    },
-];
-
 const Header = () => {
     return (
         <div className="flex justify-center items-center text-lg h-24 bg-black text-white">
@@ -213,7 +171,6 @@ function App() {
         db.get(id).then(function (doc) {
             console.log(doc);
             console.log(newContents)
-            return db.post({
                 _id: doc._id,
                 _rev: doc._rev,
                 title: newContents.title,
