@@ -15,9 +15,11 @@ const Header = () => {
 };
 
 const Card = (props) => {
-    
+
     const [title, setTitle] = useState(props.title);
     const [description, setDescription] = useState(props.description);
+
+    const [isEdited, setIsEdited] = useState(false)
 
     const onChangeHandler = (evt, updateFunction) => {
         updateFunction(evt.target.value);
@@ -32,12 +34,14 @@ const Card = (props) => {
         <div
             className={"Card bg-yellow-100 flex flex-col p-4 space-y-3 mr-4 mb-4"}>
             <input
+                disabled={isEdited ? false : true}
                 className="font-semibold bg-transparent outline-none"
                 value={title}
                 onChange={(evt) => onChangeHandler(evt, setTitle)}
             ></input>
             <hr />
             <textarea
+                disabled={isEdited ? false : true}
                 className="h-24 bg-transparent outline-none"
                 name=""
                 id=""
@@ -45,14 +49,22 @@ const Card = (props) => {
                 onChange={(evt) => onChangeHandler(evt, setDescription)}
             ></textarea>
             <div className="Card__actions flex flex-row space-x-3 justify-end items-end">
-                <div className="Card__actions-delete" onClick={() => props.deleteNote(props._id, props.index)}>DELETE</div>
-                <div className="Card__actions-edit" onClick={() => props.modifyNote(props._id, props.index, {title, description})}>EDIT</div>
+                {isEdited ?
+                    (<div className="Card__actions-save" onClick={() => {
+                        props.modifyNote(props._id, props.index, { title, description })
+                        setIsEdited(false);
+                    }}>SAVE</div>)
+                    :
+                    (<>
+                        <div className="Card__actions-delete" onClick={() => props.deleteNote(props._id, props.index)}>DELETE</div>
+                        <div className="Card__actions-edit" onClick={() => setIsEdited(true)}>EDIT</div>
+                    </>)}
             </div>
         </div>
     );
 };
 
-const CardCreator = ({addNote}) => {
+const CardCreator = ({ addNote }) => {
 
     const titleRef = useRef("");
     const descriptionRef = useRef("");
@@ -90,7 +102,7 @@ const CardList = ({ data, deleteNote, modifyNote }) => {
                 <Columns>
                     {data.map((each, idx, arr) => {
                         return <Card {...each} key={"Card-" + idx} index={idx} deleteNote={deleteNote} modifyNote={modifyNote} />
-                })}
+                    })}
                 </Columns>
             </div>
         </div>
@@ -101,10 +113,10 @@ const Footer = ({ totalNotes }) => {
     return (
         <div className="h-24 flex items-center text-xl">
             <div className="container mx-auto flex justify-between">
-            <span>© Bootmine, 2022</span>
-            <span>
-                <strong>{totalNotes} </strong>{totalNotes === 1 ? "note" : "notes"}
-            </span>
+                <span>© Bootmine, 2022</span>
+                <span>
+                    <strong>{totalNotes} </strong>{totalNotes === 1 ? "note" : "notes"}
+                </span>
             </div>
         </div>
     )
@@ -116,19 +128,19 @@ function App() {
     //Add
     function addNote(noteObject) {
         var newNote = {
-          _id: new Date().toISOString(),
-          title: noteObject.title,
-          description: noteObject.description
+            _id: new Date().toISOString(),
+            title: noteObject.title,
+            description: noteObject.description
         };
-    
+
         db.put(newNote, function callback(err, result) {
-          if (!err) {
-            setData(prevState => {
-                let temp = [...prevState];
-                temp.push(newNote);
-                return temp;
-            });
-          }
+            if (!err) {
+                setData(prevState => {
+                    let temp = [...prevState];
+                    temp.push(newNote);
+                    return temp;
+                });
+            }
         });
     }
 
@@ -175,7 +187,7 @@ function App() {
     return (
         <div className="flex flex-col h-screen">
             <Header />
-            <CardList data={data} deleteNote={deleteNote} modifyNote={modifyNote}/>
+            <CardList data={data} deleteNote={deleteNote} modifyNote={modifyNote} />
             <CardCreator addNote={addNote} />
             <Footer totalNotes={data.length} />
         </div>
