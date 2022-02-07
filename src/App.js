@@ -3,6 +3,7 @@ import Columns from "react-columns";
 import bootmineLogo from "./svg/Bootmine-logo.svg";
 
 import ReactMarkdown from 'react-markdown'
+import TextareaAutosize from 'react-textarea-autosize';
 
 // console.log(<ReactMarkdown children={`Just a link: https://reactjs.com.`} remarkPlugins={[remarkGfm]} />);
 
@@ -46,13 +47,13 @@ const Card = (props) => {
             <hr />
             {
                 isEdited ? (
-                    <textarea
-                        className="bg-transparent outline-none resize-none inline-block"
+                    <TextareaAutosize
+                        className="bg-transparent outline-none  inline-block h-auto"
                         name=""
                         id=""
                         onChange={(evt) => onChangeHandler(evt, setDescription)}>
                         {description}
-                    </textarea>
+                    </TextareaAutosize>
                 ) : (
                     <ReactMarkdown children={description} />
                 )
