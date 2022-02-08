@@ -40,7 +40,7 @@ const Card = (props) => {
     }, [props.title, props.description])
 
     useEffect(() => {
-        props.setIsEditing(isEdited)
+        props.setOverlayVisibility(isEdited)
     }, [isEdited]);
 
     return (
@@ -117,13 +117,13 @@ const CardCreator = ({ addNote }) => {
     )
 }
 
-const CardList = ({ data, deleteNote, modifyNote, setIsEditing }) => {
+const CardList = ({ data, deleteNote, modifyNote, setOverlayVisibility }) => {
     return (
         <div className="CardList bg-gray-50 py-8">
             <div className="container mx-auto">
                 <Columns>
                     {data.map((each, idx, arr) => {
-                        return <Card {...each} key={"Card-" + idx} index={idx} deleteNote={deleteNote} modifyNote={modifyNote} setIsEditing={setIsEditing} />
+                        return <Card {...each} key={"Card-" + idx} index={idx} deleteNote={deleteNote} modifyNote={modifyNote} setOverlayVisibility={setOverlayVisibility} />
                     })}
                 </Columns>
             </div>
@@ -146,7 +146,7 @@ const Footer = ({ totalNotes }) => {
 
 const Overlay = (props) => {
     return (
-        <div className="Overlay fixed z-40 bg-black/[.7] opacity-60 w-screen h-screen">
+        <div className={`Overlay fixed z-40 bg-black/[.7] opacity-60 w-screen h-screen ${props.overlayVisibility ? "" : "hidden"}`}>
             {props.children}
         </div>
     )
@@ -154,8 +154,7 @@ const Overlay = (props) => {
 
 function App() {
     const [data, setData] = useState([]);
-    const [overlayVisible, setOverlayVisible] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
+    const [overlayVisibility, setOverlayVisibility] = useState(false);
 
     //Add
     function addNote(noteObject) {
@@ -218,9 +217,9 @@ function App() {
 
     return (
         <div className="flex flex-col h-screen">
-            {isEditing ? <Overlay /> : null}
+            <Overlay overlayVisibility={overlayVisibility} />
             <Header />
-            <CardList data={data} deleteNote={deleteNote} modifyNote={modifyNote} setIsEditing={setIsEditing}/>
+            <CardList data={data} deleteNote={deleteNote} modifyNote={modifyNote} setOverlayVisibility={setOverlayVisibility}/>
             <CardCreator addNote={addNote} />
             <Footer totalNotes={data.length} />
         </div>
