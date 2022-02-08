@@ -39,9 +39,13 @@ const Card = (props) => {
         setDescription(props.description);
     }, [props.title, props.description])
 
+    useEffect(() => {
+        props.setIsEditing(isEdited)
+    }, [isEdited]);
+
     return (
         <div
-            className={"Card group bg-yellow-100 flex flex-col p-4 space-y-3 mr-4 mb-4"}>
+            className={"Card group bg-yellow-100 flex flex-col p-4 space-y-3 mr-4 mb-4" + " " + (isEdited ? "z-50 relative" : "")}>
             <input
                 disabled={isEdited ? false : true}
                 className="font-semibold bg-transparent outline-none"
@@ -113,13 +117,13 @@ const CardCreator = ({ addNote }) => {
     )
 }
 
-const CardList = ({ data, deleteNote, modifyNote }) => {
+const CardList = ({ data, deleteNote, modifyNote, setIsEditing }) => {
     return (
         <div className="CardList bg-gray-50 py-8">
             <div className="container mx-auto">
                 <Columns>
                     {data.map((each, idx, arr) => {
-                        return <Card {...each} key={"Card-" + idx} index={idx} deleteNote={deleteNote} modifyNote={modifyNote} />
+                        return <Card {...each} key={"Card-" + idx} index={idx} deleteNote={deleteNote} modifyNote={modifyNote} setIsEditing={setIsEditing} />
                     })}
                 </Columns>
             </div>
@@ -140,8 +144,18 @@ const Footer = ({ totalNotes }) => {
     )
 }
 
+const Overlay = (props) => {
+    return (
+        <div className="Overlay fixed z-40 bg-black/[.7] opacity-60 w-screen h-screen">
+            {props.children}
+        </div>
+    )
+}
+
 function App() {
     const [data, setData] = useState([]);
+    const [overlayVisible, setOverlayVisible] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
 
     //Add
     function addNote(noteObject) {
@@ -204,8 +218,9 @@ function App() {
 
     return (
         <div className="flex flex-col h-screen">
+            {isEditing ? <Overlay /> : null}
             <Header />
-            <CardList data={data} deleteNote={deleteNote} modifyNote={modifyNote} />
+            <CardList data={data} deleteNote={deleteNote} modifyNote={modifyNote} setIsEditing={setIsEditing}/>
             <CardCreator addNote={addNote} />
             <Footer totalNotes={data.length} />
         </div>
