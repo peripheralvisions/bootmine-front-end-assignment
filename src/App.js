@@ -48,7 +48,7 @@ const Card = (props) => {
             {
                 isEdited ? (
                     <TextareaAutosize
-                        className="bg-transparent outline-none  inline-block h-auto"
+                        className="bg-transparent outline-none inline-block h-auto resize-none overflow-hidden"
                         name=""
                         id=""
                         onChange={(evt) => onChangeHandler(evt, setDescription)}>
