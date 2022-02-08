@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useReducer } from "react";
+import ReactDOM from 'react-dom'
 import Columns from "react-columns";
 
 import ReactMarkdown from 'react-markdown'
@@ -9,11 +10,36 @@ import bootmineLogo from "./svg/Bootmine-logo.svg";
 import pencilSVG from "./svg/basic_pencil_ruler_pen.svg"
 import trashcanSVG from "./svg/basic_trashcan.svg"
 
-// console.log(<ReactMarkdown children={`Just a link: https://reactjs.com.`} remarkPlugins={[remarkGfm]} />);
-
 import PouchDB from "pouchdb";
 
 var db = new PouchDB('notes');
+
+function modalConfirm(Component) {
+    return function () {
+        const targetNode = document.body.appendChild(document.createElement('div'));
+
+        const promise = new Promise((resolve, reject) => {
+            ReactDOM.render(<Component reject={reject} resolve={resolve} dispose={dispose} />, targetNode);
+        })
+
+        function dispose() {
+            ReactDOM.unmountComponentAtNode(targetNode);
+            setTimeout(() => {
+                if (document.body.contains(targetNode)) {
+                    document.body.removeChild(targetNode)
+                }
+            });
+        }
+
+        return promise.then((result) => {
+            dispose();
+            return result;
+        }, (result) => {
+            dispose();
+            return Promise.reject(result);
+        })
+    }
+}
 
 const Header = () => {
     return (
@@ -146,8 +172,22 @@ const Footer = ({ totalNotes }) => {
 
 const Overlay = (props) => {
     return (
-        <div className={`Overlay fixed z-40 bg-black/[.7] opacity-60 w-screen h-screen ${props.overlayVisibility ? "" : "hidden"}`}>
+        <div className={`Overlay fixed z-40 bg-black/[.7]  w-screen h-screen top-0 left-0 ${props.overlayVisibility ? "" : "hidden"}`}>
             {props.children}
+        </div>
+    )
+}
+
+const Modal = ({ resolve, reject }) => {
+    return (
+        <div>
+            <Overlay overlayVisibility={true} />
+            <div className="Modal w-screen h-screen fixed top-0 left-0 z-50">
+                <div className="w-full h-full flex justify-center items-center text-white space-x-4">
+                    <button onClick={() => reject()}>NO</button>
+                    <button onClick={() => resolve(true)}>YES</button>
+                </div>
+            </div>
         </div>
     )
 }
@@ -178,15 +218,18 @@ function App() {
     //Delete
     function deleteNote(id, arrIndex) {
 
-        db.get(id).then(function (doc) {
-            return db.remove(doc);
-        });
+        modalConfirm(Modal)()
+            .then(() => {
+                db.get(id).then(function (doc) {
+                    return db.remove(doc);
+                });
 
-        setData(prevState => {
-            let temp = [...prevState];
-            temp.splice(arrIndex, 1);
-            return temp;
-        })
+                setData(prevState => {
+                    let temp = [...prevState];
+                    temp.splice(arrIndex, 1);
+                    return temp;
+                })
+            })
     }
 
     //Modify
@@ -219,7 +262,7 @@ function App() {
         <div className="flex flex-col h-screen">
             <Overlay overlayVisibility={overlayVisibility} />
             <Header />
-            <CardList data={data} deleteNote={deleteNote} modifyNote={modifyNote} setOverlayVisibility={setOverlayVisibility}/>
+            <CardList data={data} deleteNote={deleteNote} modifyNote={modifyNote} setOverlayVisibility={setOverlayVisibility} />
             <CardCreator addNote={addNote} />
             <Footer totalNotes={data.length} />
         </div>
