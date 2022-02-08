@@ -55,7 +55,7 @@ const Card = (props) => {
                         {description}
                     </TextareaAutosize>
                 ) : (
-                    <ReactMarkdown children={description} />
+                    <ReactMarkdown className="break-words" children={description} />
                 )
             }
             <div className="Card__actions flex flex-row space-x-3 justify-end items-end">
