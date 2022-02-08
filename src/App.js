@@ -1,9 +1,13 @@
 import React, { useState, useRef, useEffect, useReducer } from "react";
 import Columns from "react-columns";
-import bootmineLogo from "./svg/Bootmine-logo.svg";
 
 import ReactMarkdown from 'react-markdown'
 import TextareaAutosize from 'react-textarea-autosize';
+
+import bootmineLogo from "./svg/Bootmine-logo.svg";
+
+import pencilSVG from "./svg/basic_pencil_ruler_pen.svg"
+import trashcanSVG from "./svg/basic_trashcan.svg"
 
 // console.log(<ReactMarkdown children={`Just a link: https://reactjs.com.`} remarkPlugins={[remarkGfm]} />);
 
@@ -37,7 +41,7 @@ const Card = (props) => {
 
     return (
         <div
-            className={"Card bg-yellow-100 flex flex-col p-4 space-y-3 mr-4 mb-4"}>
+            className={"Card group bg-yellow-100 flex flex-col p-4 space-y-3 mr-4 mb-4"}>
             <input
                 disabled={isEdited ? false : true}
                 className="font-semibold bg-transparent outline-none"
@@ -58,17 +62,21 @@ const Card = (props) => {
                     <ReactMarkdown className="break-words prose" children={description} />
                 )
             }
-            <div className="Card__actions flex flex-row space-x-3 justify-end items-end">
+            <div className="Card__actions flex flex-row justify-end items-end">
                 {isEdited ?
                     (<div className="Card__actions-save" onClick={() => {
                         props.modifyNote(props._id, props.index, { title, description })
                         setIsEdited(false);
                     }}>SAVE</div>)
                     :
-                    (<>
-                        <div className="Card__actions-delete" onClick={() => props.deleteNote(props._id, props.index)}>DELETE</div>
-                        <div className="Card__actions-edit" onClick={() => setIsEdited(true)}>EDIT</div>
-                    </>)}
+                    (<div className="flex flex-row space-x-2 invisible group-hover:visible">
+                        <div className="Card__actions-delete" onClick={() => props.deleteNote(props._id, props.index)}>
+                            <img className="h-5 cursor-pointer" src={trashcanSVG} />
+                        </div>
+                        <div className="Card__actions-edit" onClick={() => setIsEdited(true)}>
+                            <img className="h-5 cursor-pointer" src={pencilSVG} />
+                        </div>
+                    </div>)}
             </div>
         </div>
     );
