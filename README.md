@@ -27,6 +27,7 @@ Note taking SPA made with React with persistent storage.
 
 ## UX/UI Feedback
   Per instructions, I followed the design closely and had to force myself not to implement certain UX features.
+  
   Here is a list of things that I think could be improved.
 ### Concerns / Opinions
 1. The application is bound to max 3 column design.
@@ -40,6 +41,9 @@ Note taking SPA made with React with persistent storage.
     * The main feature of using notes is the fact that they often are different colored. The purpose of different colors is that people can easier remember color-coded notes. Having the option to color-code notes is absolutely vital for a note taking app.
 5. Deleting multiple cards takes too long.
     * You have to go through confirmation modal with every deletion which makes deleting multiple elements a pain and pain is not good for UX.
+6. Lack of animations/transitions
+    * Any app will benefit of plesant transitions between states and smooth animations.
+    * Plesant animations create better overal UX.
 
 ### Smaller concerns
 1. Placement of delete action
