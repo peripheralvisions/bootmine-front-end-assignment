@@ -43,8 +43,8 @@ function modalConfirm(Component) {
 
 const Header = () => {
     return (
-        <div className="flex justify-center items-center text-lg h-24 bg-black text-white">
-            <img src={bootmineLogo} alt="" srcset="" />
+        <div className="Header flex shrink-0 justify-center items-center text-lg h-20 bg-black text-white">
+            <img src={bootmineLogo} className="h-10" alt="" srcset="" />
         </div>
     );
 };
@@ -71,7 +71,7 @@ const Card = (props) => {
 
     return (
         <div
-            className={"Card group bg-yellow-100 flex flex-col p-4 space-y-3 mr-4 mb-4" + " " + (isEdited ? "z-50 relative" : "")}>
+            className={"Card group rounded-sm bg-yellow-100 flex flex-col p-4 space-y-3 mr-4 mb-4" + " " + (isEdited ? "z-50 relative" : "")}>
             <input
                 disabled={isEdited ? false : true}
                 className="font-semibold bg-transparent outline-none"
@@ -127,7 +127,7 @@ const CardCreator = ({ addNote }) => {
     }
 
     return (
-        <div className="CardCreator bg-gray-100 flex-1 p-8 text-xl">
+        <div className="CardCreator bg-gray-100 p-9 text-xl">
             <div className="container mx-auto">
                 <span className="text-lg font-semibold mb-4 inline-block text-gray-600">New Note</span>
                 <div className="CardCreator__card w-1/2 flex flex-col bg-white p-8">
@@ -159,7 +159,7 @@ const CardList = ({ data, deleteNote, modifyNote, setOverlayVisibility }) => {
 
 const Footer = ({ totalNotes }) => {
     return (
-        <div className="h-24 flex items-center text-xl">
+        <div className="h-20 flex shrink-0 items-center text-xl">
             <div className="container mx-auto flex justify-between">
                 <span>© Bootmine, 2022</span>
                 <span>
@@ -274,7 +274,7 @@ function App() {
     }, [])
 
     return (
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-screen w-screen overflow-x-hidden overflow-y-auto">
             <Overlay overlayVisibility={overlayVisibility} />
             <Header />
             <CardList data={data} deleteNote={deleteNote} modifyNote={modifyNote} setOverlayVisibility={setOverlayVisibility} />
