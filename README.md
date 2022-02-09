@@ -38,7 +38,9 @@ Note taking SPA made with React with persistent storage.
     * Not having this crucial feature turns organizing app into a shopping list app. Any user would prefer to change the position of created cards.
 4. Cards can't change color.
     * The main feature of using notes is the fact that they often are different colored. The purpose of different colors is that people can easier remember color-coded notes. Having the option to color-code notes is absolutely vital for a note taking app.
+5. Deleting multiple cards takes too long.
+    * You have to go through confirmation modal with every deletion which makes deleting multiple elements a pain and pain is not good for UX.
 
 ### Smaller concerns
 1. Placement of delete action
-    * Personally, over the years I adjusted to having a delete icon near the edge.
+    * A lot of applications place their delete button near the edge. Personally I got adjusted to that.
