@@ -178,18 +178,33 @@ const Overlay = (props) => {
     )
 }
 
-const Modal = ({ resolve, reject }) => {
+const Modal = ({titleText, descriptionText, cancelText = "CANCEL", confirmText = "OK", confirmColorClassnames, resolve, reject }) => {
     return (
         <div>
             <Overlay overlayVisibility={true} />
-            <div className="Modal w-screen h-screen fixed top-0 left-0 z-50">
-                <div className="w-full h-full flex justify-center items-center text-white space-x-4">
-                    <button onClick={() => reject()}>NO</button>
-                    <button onClick={() => resolve(true)}>YES</button>
+            <div className="Modal flex w-screen h-screen justify-center items-center fixed top-0 left-0 z-50">
+                <div className="flex flex-col text-gray-500 text-lg bg-white text-center space-y-8 p-12 rounded-md">
+                    <h2 className="text-2xl font-semibold">{titleText}</h2>
+                    <p className="text-gray-500">{descriptionText}</p>
+                    <div className="Modal__buttons flex justify-center space-x-4 text-white">
+                        <button className="font-semibold bg-gray-600 py-3 px-5 rounded-md" onClick={() => reject()}>{cancelText}</button>
+                        <button className={`${confirmColorClassnames || ""} font-semibold py-3 px-5 rounded-md`} onClick={() => resolve(true)}>{confirmText}</button>
+                    </div>
                 </div>
             </div>
         </div>
     )
+}
+
+const ModalDelete = (props) => {
+    return (<Modal
+        titleText={"Weet je zeker dat je deze notitie wilt verwijderen?"}
+        descriptionText={"Dit kan niet ongedaan worden gemaakt"}
+        cancelText={"ANNULEREN"}
+        confirmText={"VERDWIJDEREN"}
+        confirmColorClassnames={"bg-red-400"}
+        {...props}
+    />)
 }
 
 function App() {
@@ -218,7 +233,7 @@ function App() {
     //Delete
     function deleteNote(id, arrIndex) {
 
-        modalConfirm(Modal)()
+        modalConfirm(ModalDelete)()
             .then(() => {
                 db.get(id).then(function (doc) {
                     return db.remove(doc);
