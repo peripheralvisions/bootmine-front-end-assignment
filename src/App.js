@@ -71,7 +71,7 @@ const Card = (props) => {
 
     return (
         <div
-            className={"Card group rounded-sm bg-yellow-100 flex flex-col p-4 space-y-3 mr-4 mb-4" + " " + (isEdited ? "z-50 relative" : "")}>
+            className={"Card group rounded-sm bg-yellow-100 flex flex-col p-4 space-y-3 lg:mr-4 mb-4" + " " + (isEdited ? "z-50 relative" : "")}>
             <input
                 disabled={isEdited ? false : true}
                 className="font-semibold bg-transparent outline-none"
@@ -127,10 +127,10 @@ const CardCreator = ({ addNote }) => {
     }
 
     return (
-        <div className="CardCreator bg-gray-100 p-9 text-xl">
-            <div className="container mx-auto">
+        <div className="CardCreator bg-gray-100 py-9 text-xl">
+            <div className="container px-4 mx-auto">
                 <span className="text-lg font-semibold mb-4 inline-block text-gray-600">New Note</span>
-                <div className="CardCreator__card w-1/2 flex flex-col bg-white p-8">
+                <div className="CardCreator__card w-full lg:w-1/2 flex flex-col bg-white p-8">
                     <div className="space-y-4 flex flex-col">
                         <input ref={titleRef} className="w-full bg-transparent font-semibold outline-none" type="text" placeholder="Your title here" />
                         <hr />
@@ -144,10 +144,24 @@ const CardCreator = ({ addNote }) => {
 }
 
 const CardList = ({ data, deleteNote, modifyNote, setOverlayVisibility }) => {
+
+    const columnQueries = [
+
+        {
+            columns: 1,
+            query: "min-width: 100px"
+        },
+
+        {
+            columns: 3,
+            query: "min-width: 1000px"
+        },
+    ]
+
     return (
-        <div className="CardList bg-gray-50 py-8">
+        <div className="CardList flex-1 bg-gray-50 py-8 px-4">
             <div className="container mx-auto">
-                <Columns>
+                <Columns queries={columnQueries}>
                     {data.map((each, idx, arr) => {
                         return <Card {...each} key={"Card-" + idx} index={idx} deleteNote={deleteNote} modifyNote={modifyNote} setOverlayVisibility={setOverlayVisibility} />
                     })}
@@ -160,7 +174,7 @@ const CardList = ({ data, deleteNote, modifyNote, setOverlayVisibility }) => {
 const Footer = ({ totalNotes }) => {
     return (
         <div className="h-20 flex shrink-0 items-center text-xl">
-            <div className="container mx-auto flex justify-between">
+            <div className="container mx-auto flex justify-between px-4">
                 <span>© Bootmine, 2022</span>
                 <span>
                     <strong>{totalNotes} </strong>{totalNotes === 1 ? "note" : "notes"}
@@ -182,10 +196,10 @@ const Modal = ({titleText, descriptionText, cancelText = "CANCEL", confirmText =
     return (
         <div>
             <Overlay overlayVisibility={true} />
-            <div className="Modal flex w-screen h-screen justify-center items-center fixed top-0 left-0 z-50">
-                <div className="flex flex-col text-gray-500 text-lg bg-white text-center space-y-8 p-12 rounded-md">
-                    <h2 className="text-2xl font-semibold">{titleText}</h2>
-                    <p className="text-gray-500">{descriptionText}</p>
+            <div className="Modal flex w-screen h-screen justify-center items-center fixed top-0 left-0 z-50 p-8">
+                <div className="flex flex-col text-gray-500 text-lg bg-white text-center space-y-4 sm:space-y-8 p-6 sm:p-12 rounded-md">
+                    <h2 className="text-md sm:text-2xl font-semibold">{titleText}</h2>
+                    <p className="text-gray-500 text-sm sm:text-lg block">{descriptionText}</p>
                     <div className="Modal__buttons flex justify-center space-x-4 text-white">
                         <button className="font-semibold bg-gray-600 py-3 px-5 rounded-md" onClick={() => reject()}>{cancelText}</button>
                         <button className={`${confirmColorClassnames || ""} font-semibold py-3 px-5 rounded-md`} onClick={() => resolve(true)}>{confirmText}</button>
@@ -202,7 +216,7 @@ const ModalDelete = (props) => {
         descriptionText={"Dit kan niet ongedaan worden gemaakt"}
         cancelText={"ANNULEREN"}
         confirmText={"VERDWIJDEREN"}
-        confirmColorClassnames={"bg-red-400"}
+        confirmColorClassnames={"bg-red-500"}
         {...props}
     />)
 }
