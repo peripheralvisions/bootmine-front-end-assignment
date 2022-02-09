@@ -41,6 +41,12 @@ function modalConfirm(Component) {
     }
 }
 
+const SharedButton = ({backgroundColorClass, textColorClass, onClick, children, classNames}) => {
+    return (
+        <button className={`SharedButton ${backgroundColorClass} ${textColorClass} text-base text-white p-3 px-5 py-2 font-semibold rounded-md ${classNames}`} onClick={onClick}>{children}</button>
+    );
+};
+
 const Header = () => {
     return (
         <div className="Header flex shrink-0 justify-center items-center text-lg h-20 bg-black text-white">
@@ -94,10 +100,10 @@ const Card = (props) => {
             }
             <div className="Card__actions flex flex-row justify-end items-end">
                 {isEdited ?
-                    (<div className="Card__actions-save" onClick={() => {
+                    (<SharedButton backgroundColorClass="bg-black" onClick={() => {
                         props.modifyNote(props._id, props.index, { title, description })
                         setIsEdited(false);
-                    }}>SAVE</div>)
+                    }}>SAVE</SharedButton>)
                     :
                     (<div className="flex flex-row space-x-2 invisible group-hover:visible">
                         <div className="Card__actions-delete" onClick={() => props.deleteNote(props._id, props.index)}>
@@ -131,11 +137,11 @@ const CardCreator = ({ addNote }) => {
             <div className="container px-4 mx-auto">
                 <span className="text-lg font-semibold mb-4 inline-block text-gray-600">New Note</span>
                 <div className="CardCreator__card w-full lg:w-1/2 flex flex-col bg-white p-8">
-                    <div className="space-y-4 flex flex-col">
+                    <div className="space-y-4 flex flex-col justify-start">
                         <input ref={titleRef} className="w-full bg-transparent font-semibold outline-none" type="text" placeholder="Your title here" />
                         <hr />
                         <textarea ref={descriptionRef} className="w-full bg-transparent flex-1 text-base resize-none outline-none" placeholder="Type your text here. Feel free to use markdown"></textarea>
-                        <button className="bg-green-400 text-base text-white p-3 py-2 self-end" onClick={clickHandler}>TOEVOEGEN</button>
+                        <SharedButton backgroundColorClass={"bg-green-400"} textColorClass="text-white" onClick={clickHandler} classNames="self-end">TOEVOEGEN</SharedButton>
                     </div>
                 </div>
             </div>
@@ -201,8 +207,9 @@ const Modal = ({titleText, descriptionText, cancelText = "CANCEL", confirmText =
                     <h2 className="text-md sm:text-2xl font-semibold">{titleText}</h2>
                     <p className="text-gray-500 text-sm sm:text-lg block">{descriptionText}</p>
                     <div className="Modal__buttons flex justify-center space-x-4 text-white">
-                        <button className="font-semibold bg-gray-600 py-3 px-5 rounded-md" onClick={() => reject()}>{cancelText}</button>
-                        <button className={`${confirmColorClassnames || ""} font-semibold py-3 px-5 rounded-md`} onClick={() => resolve(true)}>{confirmText}</button>
+                        <SharedButton backgroundColorClass="bg-gray-600" textColorClass="white" onClick={() => reject()}>{cancelText}</SharedButton>
+                        <SharedButton backgroundColorClass="bg-red-500" textColorClass="white" onClick={() => resolve()}>{confirmText}</SharedButton>
+
                     </div>
                 </div>
             </div>
