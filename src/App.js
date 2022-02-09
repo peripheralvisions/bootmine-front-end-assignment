@@ -77,10 +77,10 @@ const Card = (props) => {
 
     return (
         <div
-            className={"Card group rounded-sm bg-yellow-100 flex flex-col p-4 space-y-3 lg:mr-4 mb-4" + " " + (isEdited ? "z-50 relative" : "")}>
+            className={"Card group rounded-sm bg-yellow-100 flex flex-col text-gray-800 p-4 space-y-3 lg:mr-4 mb-4" + " " + (isEdited ? "z-50 relative text-black" : "")}>
             <input
                 disabled={isEdited ? false : true}
-                className="font-semibold bg-transparent outline-none"
+                className={`font-semibold bg-transparent outline-none`}
                 value={title}
                 onChange={(evt) => onChangeHandler(evt, setTitle)}
             ></input>
@@ -88,14 +88,14 @@ const Card = (props) => {
             {
                 isEdited ? (
                     <TextareaAutosize
-                        className="bg-transparent outline-none inline-block h-auto resize-none overflow-hidden"
+                        className="bg-transparent outline-none inline-block h-auto resize-none overflow-hidden leading-none"
                         name=""
                         id=""
                         onChange={(evt) => onChangeHandler(evt, setDescription)}>
                         {description}
                     </TextareaAutosize>
                 ) : (
-                    <ReactMarkdown className="break-words prose" children={description} />
+                    <ReactMarkdown className="break-words prose leading-none" children={description} />
                 )
             }
             <div className="Card__actions flex flex-row justify-end items-end">
