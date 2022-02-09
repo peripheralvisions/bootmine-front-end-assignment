@@ -133,8 +133,8 @@ const CardCreator = ({ addNote }) => {
     }
 
     return (
-        <div className="CardCreator bg-gray-100 py-9 text-xl">
-            <div className="container px-4 mx-auto">
+        <div className="CardCreator bg-gray-100 py-9 px-4 text-xl">
+            <div className="container mx-auto">
                 <span className="text-lg font-semibold mb-4 inline-block text-gray-600">New Note</span>
                 <div className="CardCreator__card w-full lg:w-1/2 flex flex-col bg-white p-8">
                     <div className="space-y-4 flex flex-col justify-start">
