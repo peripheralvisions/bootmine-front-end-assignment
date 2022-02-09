@@ -295,7 +295,7 @@ function App() {
     }, [])
 
     return (
-        <div className="flex flex-col h-screen w-screen overflow-x-hidden overflow-y-auto">
+        <div className="flex flex-col h-screen w-screen overflow-x-hidden overflow-y-auto font-main">
             <Overlay overlayVisibility={overlayVisibility} />
             <Header />
             <CardList data={data} deleteNote={deleteNote} modifyNote={modifyNote} setOverlayVisibility={setOverlayVisibility} />
