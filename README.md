@@ -2,6 +2,8 @@
 
 Note taking SPA made with React with persistent storage.
 
+⚙️ To run the app use ```npm run watch``` which runs ```webpack serve --mode development``` ⚙️
+
 ### Main requirements / Features
 ```diff
 + Add notes
