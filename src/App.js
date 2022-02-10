@@ -50,7 +50,7 @@ const SharedButton = ({backgroundColorClass, textColorClass, onClick, children, 
 const Header = () => {
     return (
         <div className="Header flex shrink-0 justify-center items-center text-lg h-20 bg-black text-white">
-            <img src={bootmineLogo} className="h-10" alt="" srcset="" />
+            <img src={bootmineLogo} className="h-10" alt="bootmine-logo" />
         </div>
     );
 };
@@ -89,8 +89,6 @@ const Card = (props) => {
                 isEdited ? (
                     <TextareaAutosize
                         className="bg-transparent outline-none inline-block h-auto resize-none overflow-hidden leading-none"
-                        name=""
-                        id=""
                         onChange={(evt) => onChangeHandler(evt, setDescription)}>
                         {description}
                     </TextareaAutosize>
@@ -120,8 +118,8 @@ const Card = (props) => {
 
 const CardCreator = ({ addNote }) => {
 
-    const titleRef = useRef("");
-    const descriptionRef = useRef("");
+    const titleRef = useRef(null);
+    const descriptionRef = useRef(null);
 
     function clickHandler(evt) {
         addNote({
