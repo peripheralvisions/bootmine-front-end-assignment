@@ -48,6 +48,8 @@ The app is currently crunched into a single file. Components will be soon put in
 6. Lack of animations/transitions
     * Any app will benefit of plesant transitions between states and smooth animations.
     * Plesant animations create better overal UX.
+7. Only one board for all the cards.
+    * It would be great if users could create different groups of notes for different purposes.
 
 ### Smaller concerns
 1. Placement of delete action
