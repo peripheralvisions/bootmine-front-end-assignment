@@ -77,10 +77,10 @@ const Card = (props) => {
 
     return (
         <div
-            className={"Card group rounded-sm bg-yellow-100 flex flex-col text-gray-800 p-4 space-y-3 lg:mr-4 mb-4" + " " + (isEdited ? "z-50 relative text-black" : "")}>
+            className={"Card group rounded-sm bg-pale-yellow flex flex-col shadow-sm text-gold-fusion p-4 space-y-3 lg:mr-4 mb-4" + " " + (isEdited ? "z-50 relative text-jacko-bean" : "")}>
             <input
                 disabled={isEdited ? false : true}
-                className={`font-semibold bg-transparent outline-none`}
+                className={`font-semibold bg-transparent outline-none text-lg`}
                 value={title}
                 onChange={(evt) => onChangeHandler(evt, setTitle)}
             ></input>
@@ -93,7 +93,7 @@ const Card = (props) => {
                         {description}
                     </TextareaAutosize>
                 ) : (
-                    <ReactMarkdown className="break-words prose leading-none" children={description} />
+                    <ReactMarkdown className="break-words prose leading-none text-inherit" children={description} />
                 )
             }
             <div className="Card__actions flex flex-row justify-end items-end">
@@ -131,15 +131,15 @@ const CardCreator = ({ addNote }) => {
     }
 
     return (
-        <div className="CardCreator bg-gray-100 py-9 px-4 text-xl">
+        <div className="CardCreator bg-zinc-200 py-9 px-4 text-xl">
             <div className="container mx-auto">
-                <span className="text-lg font-semibold mb-4 inline-block text-gray-600">New Note</span>
-                <div className="CardCreator__card w-full lg:w-1/2 flex flex-col bg-white p-8">
+                <span className="text-xl font-semibold mb-4 inline-block text-gray-600">New Note</span>
+                <div className="CardCreator__card w-full lg:w-1/2 flex flex-col bg-white p-8 rounded-sm">
                     <div className="space-y-4 flex flex-col justify-start">
                         <input ref={titleRef} className="w-full bg-transparent font-semibold outline-none" type="text" placeholder="Your title here" />
                         <hr />
                         <textarea ref={descriptionRef} className="w-full bg-transparent flex-1 text-base resize-none outline-none" placeholder="Type your text here. Feel free to use markdown"></textarea>
-                        <SharedButton backgroundColorClass={"bg-green-400"} textColorClass="text-white" onClick={clickHandler} classNames="self-end">TOEVOEGEN</SharedButton>
+                        <SharedButton backgroundColorClass={"bg-washed-green"} textColorClass="text-white" onClick={clickHandler} classNames="self-end">TOEVOEGEN</SharedButton>
                     </div>
                 </div>
             </div>
@@ -163,7 +163,7 @@ const CardList = ({ data, deleteNote, modifyNote, setOverlayVisibility }) => {
     ]
 
     return (
-        <div className="CardList flex-1 bg-gray-50 py-8 px-4">
+        <div className="CardList flex-1 bg-gray-100 py-8 px-4">
             <div className="container mx-auto">
                 <Columns queries={columnQueries}>
                     {data.map((each, idx, arr) => {
@@ -177,7 +177,7 @@ const CardList = ({ data, deleteNote, modifyNote, setOverlayVisibility }) => {
 
 const Footer = ({ totalNotes }) => {
     return (
-        <div className="h-20 flex shrink-0 items-center text-xl">
+        <div className="h-20 flex shrink-0 items-center text-xl text-gray-400">
             <div className="container mx-auto flex justify-between px-4">
                 <span>© Bootmine, 2022</span>
                 <span>
