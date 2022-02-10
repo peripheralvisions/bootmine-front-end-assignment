@@ -88,12 +88,12 @@ const Card = (props) => {
             {
                 isEdited ? (
                     <TextareaAutosize
-                        className="bg-transparent outline-none inline-block h-auto resize-none overflow-hidden leading-none"
+                        className="bg-transparent outline-none inline-block h-auto resize-none overflow-hidden leading-6"
                         onChange={(evt) => onChangeHandler(evt, setDescription)}>
                         {description}
                     </TextareaAutosize>
                 ) : (
-                    <ReactMarkdown className="break-words prose leading-none text-inherit" children={description} />
+                    <ReactMarkdown className="break-words prose leading-6 text-inherit" children={description} />
                 )
             }
             <div className="Card__actions flex flex-row justify-end items-end">
