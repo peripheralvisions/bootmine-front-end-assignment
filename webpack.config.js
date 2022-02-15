@@ -3,7 +3,10 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const config = {
-  entry: "./src/index.js",
+  entry: "./src/index.tsx",
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
@@ -11,8 +14,8 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        use: "babel-loader",
+        test: /\.tsx?/, 
+        loader: "ts-loader",
         exclude: /node_modules/,
       },
       {
