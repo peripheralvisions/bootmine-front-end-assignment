@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 
-export default function modalConfirm(Component) {
+export default function modalConfirm(Component: any) {
     return function () {
         const targetNode = document.body.appendChild(document.createElement('div'));
 

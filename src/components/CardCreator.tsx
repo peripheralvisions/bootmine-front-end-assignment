@@ -1,16 +1,27 @@
 import React, {useRef} from 'react'
 import SharedButton from './SharedButton';
 
-const CardCreator = ({ addNote }) => {
+import {Note} from "./../types";
 
-    const titleRef = useRef(null);
-    const descriptionRef = useRef(null);
+interface Props {
+    addNote: (noteObject: {
+        title: string,
+        description: string
+    }) => void,
+}
 
-    function clickHandler(evt) {
+const CardCreator: React.FunctionComponent<Props> = ({ addNote }: Props) => {
+
+    const titleRef = useRef<HTMLInputElement>(null);
+    const descriptionRef = useRef<HTMLTextAreaElement>(null);
+
+    function clickHandler() {
+
         addNote({
-            title: titleRef.current.value,
-            description: descriptionRef.current.value,
+            title: titleRef.current ? titleRef.current.value : "",
+            description: descriptionRef.current ? descriptionRef.current.value : "",
         })
+        
         titleRef.current.value = "";
         descriptionRef.current.value = "";
     }

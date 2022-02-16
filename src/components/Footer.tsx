@@ -1,6 +1,10 @@
 import React from 'react'
 
-const Footer = ({ totalNotes }) => {
+interface Props {
+    totalNotes: number,
+}
+
+const Footer: React.FunctionComponent<Props> = ({ totalNotes }) => {
     return (
         <div className="h-20 flex shrink-0 items-center text-xl text-gray-400">
             <div className="container mx-auto flex justify-between px-4">

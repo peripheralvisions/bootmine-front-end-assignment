@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import Overlay from './Overlay';
 import SharedButton from './SharedButton';
 
-const Modal = ({titleText, descriptionText, cancelText = "CANCEL", confirmText = "OK", confirmColorClassnames, resolve, reject }) => {
+interface Props {
+    titleText?: string,
+    descriptionText?: string,
+    cancelText?: string,
+    confirmText?: string,
+    confirmColorClassnames?: string,
+    resolve?: any,
+    reject?: any,
+}
+
+const Modal: FunctionComponent<Props> = ({titleText, descriptionText, cancelText = "CANCEL", confirmText = "OK", confirmColorClassnames, resolve, reject }: Props) => {
     return (
         <div>
             <Overlay overlayVisibility={true} />

@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import Modal from './Modal';
 
-const ModalDelete = (props) => {
+interface Props {
+    props: React.ComponentProps<any>,
+}
+
+const ModalDelete: FunctionComponent<Props> = (props: Props) => {
     return (<Modal
         titleText={"Weet je zeker dat je deze notitie wilt verwijderen?"}
         descriptionText={"Dit kan niet ongedaan worden gemaakt"}

@@ -7,14 +7,24 @@ import SharedButton from './SharedButton';
 import pencilSVG from "./../svg/basic_pencil_ruler_pen.svg"
 import trashcanSVG from "./../svg/basic_trashcan.svg"
 
-const Card = (props) => {
+interface Props {
+    _id: string,
+    description: string,
+    index: number,
+    title: string,
+    setOverlayVisibility: React.Dispatch<React.SetStateAction<boolean>>,
+    modifyNote: (_id: string, index: number, newContents: {title: string, description: string}) => void,
+    deleteNote: (_id: string, index: number) => void,
+}
+
+const Card: React.FunctionComponent<Props> = (props: Props) => {
 
     const [title, setTitle] = useState(props.title);
     const [description, setDescription] = useState(props.description);
 
     const [isEdited, setIsEdited] = useState(false)
 
-    const onChangeHandler = (evt, updateFunction) => {
+    const onChangeHandler = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, updateFunction: React.Dispatch<React.SetStateAction<string>>) => {
         updateFunction(evt.target.value);
     };
 
