@@ -25,7 +25,7 @@ The app is currently crunched into a single file. Components will be soon put in
 + Use SASS/SCSS or Tailwind (Tailwind)
 + Usage of a database (PouchDB)
 + Pointing out weaknessess in UX/UI (Read further)
-! Usage of typescript
++ Usage of typescript ( In this branch )
 ! Unit tests
 ```
 
